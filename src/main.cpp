@@ -1,8 +1,11 @@
 // Ref1. https://raspberrypi.mongonta.com/howto-start-m5stack-core2arduinoide/
 // Ref2. https://note.com/katsushun89/n/nd2cbcb9d88a3
+// Ref3. https://github.com/m5stack/m5-docs/blob/master/docs/ja/api/button.md
 
 #include <Arduino.h>
 #include <M5Core2.h>
+
+/*
 #include <map>
 #include <Fonts/EVA_20px.h>
 #include <stdio.h>
@@ -45,14 +48,25 @@ std::map<int, uint32_t> radiusMap{
 
 uint32_t color = red;
 uint32_t radius = midium;
+*/
 
 void setup() {
-  M5.begin(true, true, true, true);
-  M5.Lcd.setTextSize(3);
-  M5.Lcd.print("Hello World!!");
+  //M5.begin(true, true, true, true);
+  M5.begin(true, false, false, false);
+  M5.Lcd.setTextSize(2);
+  //M5.Lcd.print("Hello World!!");
 }
 
 void loop() {
+  M5.update();
+  M5.Lcd.setCursor(0, 0);
+  M5.Lcd.print("Button A Status: ");
+  M5.Lcd.println(M5.BtnA.isPressed());
+  M5.Lcd.print("Button B Status: ");
+  M5.Lcd.println(M5.BtnB.isPressed());
+  M5.Lcd.print("Button C Status: ");
+  M5.Lcd.println(M5.BtnC.isPressed());
+/*
   TouchPoint_t pos = M5.Touch.getPressPoint();
   static bool isPressed = false;
 
@@ -76,4 +90,5 @@ void loop() {
     }
   }
   delay(10);
+*/
 }
