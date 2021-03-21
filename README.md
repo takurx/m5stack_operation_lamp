@@ -10,3 +10,6 @@
 
 - Bath is avalilble
 ![Bath is avalilble](https://github.com/takurx/m5stack_operation_lamp/raw/main/doc/bath_is_available.jpg)
+
+- In slack
+![Display in slack](https://github.com/takurx/m5stack_operation_lamp/raw/main/doc/Screenshot%20from%202021-03-21%2021-00-30.png)
