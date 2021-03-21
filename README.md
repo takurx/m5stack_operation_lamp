@@ -3,6 +3,7 @@
 ## Setting
 - rename src/wifi_pass_template.h to src/wifi_pass.h
 - add wifi-ssid, wifi-password, slack-webhook-url to src/wifi_pass.h
+- edit message for slack in src/wifi_pass.h
 
 ## Example 
 - Bath in use
