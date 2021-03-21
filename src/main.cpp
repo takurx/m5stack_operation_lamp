@@ -105,12 +105,60 @@ void loop() {
       bath_status = true;
       M5.Lcd.clear(RED);
       M5.Lcd.println("Bath in use");
+
+      https.setCACert(ca);
+      if((https.connect(hostname, 443)))
+      {
+        // HTTP header has been send and Server response header has been handled
+        M5.Lcd.printf("[HTTPS] connection success\n");
+        //String target_page = "/rss/topics/top-picks.xml";
+        String str1 = String("POST https://") + String(hostname) + String(target_page) + " HTTP/1.1\r\n";
+              str1 += "Host: " + String(hostname) + "\r\n";
+              str1 += "User-Agent: BuildFailureDetectorESP32\r\n";
+              str1 += "Content-Type: application/x-www-form-urlencoded\r\n";
+              str1 += "Content-Length: "+ String(message_in_use.length()) +"\r\n\r\n";
+              str1 += message_in_use + "\r\n\r\n";
+              str1 += "Connection: close\r\n\r\n"; //closeを使うと、サーバーの応答後に切断される。最後に空行必要
+              str1 += "\0";
+        https.print(str1); //client.println にしないこと。最後に改行コードをプラスして送ってしまう為
+        https.flush(); //client出力が終わるまで待つ
+        
+        delay(100);
+      }
+      else
+      {
+        M5.Lcd.printf("[HTTPS] connection failed\n");
+      }
     }
     else      // change state of bath is avalilable
     {
       bath_status = false;
       M5.Lcd.clear(GREEN);
       M5.Lcd.println("Bath is available");
+
+      https.setCACert(ca);
+      if((https.connect(hostname, 443)))
+      {
+        // HTTP header has been send and Server response header has been handled
+        M5.Lcd.printf("[HTTPS] connection success\n");
+        //String target_page = "/rss/topics/top-picks.xml";
+        String str1 = String("POST https://") + String(hostname) + String(target_page) + " HTTP/1.1\r\n";
+              str1 += "Host: " + String(hostname) + "\r\n";
+              str1 += "User-Agent: BuildFailureDetectorESP32\r\n";
+              str1 += "Content-Type: application/x-www-form-urlencoded\r\n";
+              str1 += "Content-Length: "+ String(message_available.length()) +"\r\n\r\n";
+              str1 += message_available + "\r\n\r\n";
+              str1 += "Connection: close\r\n\r\n"; //closeを使うと、サーバーの応答後に切断される。最後に空行必要
+              str1 += "\0";
+        https.print(str1); //client.println にしないこと。最後に改行コードをプラスして送ってしまう為
+        https.flush(); //client出力が終わるまで待つ
+        
+        delay(100);
+      }
+      else
+      {
+        M5.Lcd.printf("[HTTPS] connection failed\n");
+      }
     }
   }
 }
