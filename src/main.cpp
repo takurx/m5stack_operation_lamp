@@ -79,7 +79,7 @@ void setup() {
   }
 
   // Wait
-  delay(5000);
+  delay(2000);
   // initialize
   bath_status = false;
   M5.Lcd.clear(GREEN);
@@ -89,14 +89,7 @@ void setup() {
 void loop() {
   M5.update();
   M5.Lcd.setCursor(0, 0);
-  //M5.Lcd.print("Button A Status: ");
-  //M5.Lcd.println(M5.BtnA.isPressed());
-  //M5.Lcd.print("Button B Status: ");
-  //M5.Lcd.println(M5.BtnB.isPressed());
-  //M5.Lcd.print("Button C Status: ");
-  //M5.Lcd.println(M5.BtnC.isPressed());
-  //M5.Lcd.print("Touch Panel Status: ");
-  //M5.Lcd.println(M5.Touch.ispressed());     //include button A/B/C
+  
   if(M5.Touch.ispressed())
   {
     WiFiClientSecure https;
