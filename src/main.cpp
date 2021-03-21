@@ -4,6 +4,8 @@
 // Ref4. https://www.skyarch.net/blog/?p=18253
 // Ref5. https://qiita.com/minwinmin/items/55ba92edac3e1ec9f602
 // Ref6. https://garretlab.web.fc2.com/arduino/esp32/examples/WiFiClientSecure/WiFiClientSecure.html
+// Ref7. https://qiita.com/lumbermill/items/2517c5f130384cced335
+// Ref8. https://wak-tech.com/archives/1770
 
 #include <Arduino.h>
 #include <M5Core2.h>
@@ -33,16 +35,19 @@ void setup() {
 
   WiFiClientSecure https;
   https.setCACert(ca);
-  //int https_connection_check = https.connect("news.yahoo.co.jp", 443);
+  //int https_connection_check = https.connect(hostname, 443);
   //if(https_connection_check > 0)
-  if((https.connect("news.yahoo.co.jp", 443)))
+  if((https.connect(hostname, 443)))
   {
     // HTTP header has been send and Server response header has been handled
     M5.Lcd.printf("[HTTPS] connection success\n");
-    String target_page = "/rss/topics/top-picks.xml";
-    String str1 = String("GET https://") + String("news.yahoo.co.jp") + target_page + " HTTP/1.1\r\n";
-           str1 += "Host: " + String("news.yahoo.co.jp") + "\r\n";
+    //String target_page = "/rss/topics/top-picks.xml";
+    String str1 = String("POST https://") + String(hostname) + String(target_page) + " HTTP/1.1\r\n";
+           str1 += "Host: " + String(hostname) + "\r\n";
            str1 += "User-Agent: BuildFailureDetectorESP32\r\n";
+           str1 += "Content-Type: application/x-www-form-urlencoded\r\n";
+           str1 += "Content-Length: "+ String(message.length()) +"\r\n\r\n";
+           str1 += message + "\r\n\r\n";
            str1 += "Connection: close\r\n\r\n"; //closeを使うと、サーバーの応答後に切断される。最後に空行必要
            str1 += "\0";
     https.print(str1); //client.println にしないこと。最後に改行コードをプラスして送ってしまう為
@@ -50,6 +55,7 @@ void setup() {
     
     delay(100);
 
+    /*
     while (https.connected()) {
       String line = https.readStringUntil('\n');
       if (line == "\r") {
@@ -65,6 +71,8 @@ void setup() {
       //Serial.write(c);
       M5.Lcd.print(c);
     }
+    */
+
     https.stop();
   }
   else
@@ -73,7 +81,8 @@ void setup() {
   }
 
   // Wait
-  delay(100000);
+  delay(10000);
+  M5.Lcd.clear(BLACK);
 }
 
 void loop() {
