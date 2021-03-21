@@ -62,7 +62,7 @@ void setup() {
 
 void loop() {
   M5.update();
-  TouchPoint_t pos = M5.Touch.getPressPoint();
+  //TouchPoint_t pos = M5.Touch.getPressPoint();
   //static bool isPressed = false;
 
   M5.Lcd.setCursor(0, 0);
@@ -72,8 +72,11 @@ void loop() {
   M5.Lcd.println(M5.BtnB.isPressed());
   M5.Lcd.print("Button C Status: ");
   M5.Lcd.println(M5.BtnC.isPressed());
-  M5.Lcd.print("Touch panel Status: ");
-  //if(!M5.Touch.ispressed()) isPressed = false;
+  M5.Lcd.print("Touch Panel Status: ");
+  M5.Lcd.println(M5.Touch.ispressed());     //include button A/B/C
+
+  //isPressed = false;
+  /*
   if(pos.y > 1 && pos.x > 1){
     //M5.Lcd.fillCircle(pos.x, pos.y, radiusMap[radius], colorMap[color]);
     M5.Lcd.println("1");
@@ -82,6 +85,7 @@ void loop() {
   {
     M5.Lcd.println("0");
   }
+  */
 
 /*
   if(!isPressed){
