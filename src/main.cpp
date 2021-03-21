@@ -4,6 +4,9 @@
 
 #include <Arduino.h>
 #include <M5Core2.h>
+#include <WiFi.h>
+#include <WiFiMulti.h>
+#include <HTTPClient.h>
 
 /*
 #include <map>
@@ -59,6 +62,9 @@ void setup() {
 
 void loop() {
   M5.update();
+  TouchPoint_t pos = M5.Touch.getPressPoint();
+  //static bool isPressed = false;
+
   M5.Lcd.setCursor(0, 0);
   M5.Lcd.print("Button A Status: ");
   M5.Lcd.println(M5.BtnA.isPressed());
@@ -66,16 +72,18 @@ void loop() {
   M5.Lcd.println(M5.BtnB.isPressed());
   M5.Lcd.print("Button C Status: ");
   M5.Lcd.println(M5.BtnC.isPressed());
-/*
-  TouchPoint_t pos = M5.Touch.getPressPoint();
-  static bool isPressed = false;
-
-  if(!M5.Touch.ispressed()) isPressed = false;
-
+  M5.Lcd.print("Touch panel Status: ");
+  //if(!M5.Touch.ispressed()) isPressed = false;
   if(pos.y > 1 && pos.x > 1){
-    M5.Lcd.fillCircle(pos.x, pos.y, radiusMap[radius], colorMap[color]);
+    //M5.Lcd.fillCircle(pos.x, pos.y, radiusMap[radius], colorMap[color]);
+    M5.Lcd.println("1");
+  }
+  else
+  {
+    M5.Lcd.println("0");
   }
 
+/*
   if(!isPressed){
     if(pos.y > 240){
       if(pos.x < 120){//btnA
