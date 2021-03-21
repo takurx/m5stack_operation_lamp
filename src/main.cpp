@@ -9,8 +9,6 @@
 #include <M5Core2.h>
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
-//#include <WiFiMulti.h>
-//#include <HTTPClient.h>
 
 #include <wifi_pass.h>
 //extern const char* ca;
@@ -38,25 +36,20 @@ const char* ca = \
 "SjnRBUkLp7Y3gaVdjKozXoEofKd9J+sAro03\n" \
 "-----END CERTIFICATE-----\n";
 
-//WiFiMulti wifiMulti;
-//HTTPClient http;
-
 void setup() {
   M5.begin(true, false, false, false);
   M5.Lcd.setTextSize(2);
   //M5.Lcd.print("Hello World!!");
 
   // WifiSetup
-  //wifiMulti.addAP(WIFI_SSID, WIFI_PASS);
   WiFi.begin(WIFI_SSID, WIFI_PASS);
 
   // wait for WiFi connection
-  //if((wifiMulti.run() == WL_CONNECTED)) {
-  
   while (WiFi.status() != WL_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
+
   M5.Lcd.println("Success wifi connection");
   M5.Lcd.print("Connected to ");
   M5.Lcd.println(WIFI_SSID);
@@ -64,8 +57,9 @@ void setup() {
 
   WiFiClientSecure https;
   https.setCACert(ca);
-  int httpCode = https.connect("news.yahoo.co.jp", 443);
-  if(httpCode > 0)
+  //int https_connection_check = https.connect("news.yahoo.co.jp", 443);
+  //if(https_connection_check > 0)
+  if((https.connect("news.yahoo.co.jp", 443)))
   {
     // HTTP header has been send and Server response header has been handled
     M5.Lcd.printf("[HTTPS] connection success\n");
@@ -95,64 +89,13 @@ void setup() {
       //Serial.write(c);
       M5.Lcd.print(c);
     }
-
     https.stop();
-
-    /*
-    String dummy_str;
-    while(https.connected()){
-      while(https.available()) {
-        dummy_str = https.read(); //サーバーから送られてきた文字を１文字も余さず受信し切ることが大事
-        //delay(1);
-      }
-      delay(10);
-      https.stop(); //特に重要。コネクションが終わったら必ず stop() しておかないとヒープメモリを食い尽くしてしまう。
-      delay(10);
-      M5.Lcd.println(F("---Client Stop---"));
-      break;
-    }
-    M5.Lcd.println(dummy_str);
-    */
   }
   else
   {
     M5.Lcd.printf("[HTTPS] connection failed\n");
   }
 
-  //if((WiFi.status() == WL_CONNECTED)) {
-    ///M5.Lcd.println("Success wifi connection");
-
-    //HTTPClient http;
-    //HTTPS
-    //http.begin("http://www.tomorinao.space/");
-    //http.begin("https://www.skyarch.net/blog/?feed=rss2", ca);
-    /*
-    WiFiClientSecure https;
-    https.setCACert(ca);
-
-    // start connection and send HTTP header
-    //int httpCode = http.GET();
-    int httpCode = https.connect("https://www.skyarch.net/blog/?feed=rss2", 443);
-
-    // httpCode will be negative on error
-    if(httpCode > 0) {
-      // HTTP header has been send and Server response header has been handled
-       M5.Lcd.printf("[HTTP] GET... code: %d\n", httpCode);
-
-      // file found at server
-      //if(httpCode == HTTP_CODE_OK) {
-        //String payload = http.getString();
-        //String payload = https.read();
-        //M5.Lcd.println(payload);
-      //}
-    }
-    //else
-    //{
-    //   M5.Lcd.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
-    //}
-    //http.end();
-    */
-  //}
   // Wait
   delay(100000);
 }
