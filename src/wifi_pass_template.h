@@ -34,5 +34,6 @@ const char* ca = \
 
 const char* hostname = "hooks.slack.com";
 const char* target_page = "/services/********/********/********";
+String message_wakeup = "payload={\"channel\": \"#********\", \"username\": \"Bath Bot\", \"text\": \"Wakeup Bath Bot.\", \"icon_emoji\": \":satisfied:\"}";
 String message = "payload={\"channel\": \"#********\", \"username\": \"********\", \"text\": \"This is test.\", \"icon_emoji\": \":smiley:\"}";
 //icon_emoji, https://qiita.com/yamadashy/items/ae673f2bae8f1525b6af

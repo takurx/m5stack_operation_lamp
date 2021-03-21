@@ -14,6 +14,8 @@
 
 #include <wifi_pass.h>
 
+bool bath_status = false;     // true: in_use, false: available
+
 void setup() {
   M5.begin(true, false, false, false);
   M5.Lcd.setTextSize(2);
@@ -46,8 +48,8 @@ void setup() {
            str1 += "Host: " + String(hostname) + "\r\n";
            str1 += "User-Agent: BuildFailureDetectorESP32\r\n";
            str1 += "Content-Type: application/x-www-form-urlencoded\r\n";
-           str1 += "Content-Length: "+ String(message.length()) +"\r\n\r\n";
-           str1 += message + "\r\n\r\n";
+           str1 += "Content-Length: "+ String(message_wakeup.length()) +"\r\n\r\n";
+           str1 += message_wakeup + "\r\n\r\n";
            str1 += "Connection: close\r\n\r\n"; //closeを使うと、サーバーの応答後に切断される。最後に空行必要
            str1 += "\0";
     https.print(str1); //client.println にしないこと。最後に改行コードをプラスして送ってしまう為
@@ -55,7 +57,6 @@ void setup() {
     
     delay(100);
 
-    /*
     while (https.connected()) {
       String line = https.readStringUntil('\n');
       if (line == "\r") {
@@ -71,7 +72,6 @@ void setup() {
       //Serial.write(c);
       M5.Lcd.print(c);
     }
-    */
 
     https.stop();
   }
@@ -81,7 +81,7 @@ void setup() {
   }
 
   // Wait
-  delay(10000);
+  delay(100000);
   M5.Lcd.clear(BLACK);
 }
 
