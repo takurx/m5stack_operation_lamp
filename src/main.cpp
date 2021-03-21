@@ -16,7 +16,7 @@
 
 #include <wifi_pass.h>
 
-#define BATH_BOT_VERSION "1.0.0"
+//#define BATH_BOT_VERSION "1.0.0"
 
 bool bath_status = false;     // true: in_use, false: available
 

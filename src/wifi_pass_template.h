@@ -1,6 +1,8 @@
 #define WIFI_SSID "[ご自身の環境のWifiSSID]"
 #define WIFI_PASS "[ご自身の環境のWifiPassowrd]"
 
+#define BATH_BOT_VERSION "1.0.0"
+
 const char* ca = \ 
 "-----BEGIN CERTIFICATE-----\n" \  
 "MII...\n" \
@@ -34,7 +36,7 @@ const char* ca = \
 
 const char* hostname = "hooks.slack.com";
 const char* target_page = "/services/********/********/********";
-String message_wakeup = "payload={\"channel\": \"#********\", \"username\": \"Bath Bot\", \"text\": \"Wakeup Bath Bot.\", \"icon_emoji\": \":satisfied:\"}";
+String message_wakeup = "payload={\"channel\": \"#********\", \"username\": \"Bath Bot\", \"text\": \"Wakeup Bath Bot. Version: " + String(BATH_BOT_VERSION) + "\", \"icon_emoji\": \":satisfied:\"}";
 String message_in_use = "payload={\"channel\": \"#********\", \"username\": \"Bath in use\", \"text\": \"Bath in use.\", \"icon_emoji\": \":hotsprings:\"}";
 String message_available = "payload={\"channel\": \"#********\", \"username\": \"Bath is available\", \"text\": \"Bath is available\", \"icon_emoji\": \":o:\"}";
 //icon_emoji, https://qiita.com/yamadashy/items/ae673f2bae8f1525b6af
