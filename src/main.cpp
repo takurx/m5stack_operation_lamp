@@ -37,8 +37,6 @@ void setup() {
 
   WiFiClientSecure https;
   https.setCACert(ca);
-  //int https_connection_check = https.connect(hostname, 443);
-  //if(https_connection_check > 0)
   if((https.connect(hostname, 443)))
   {
     // HTTP header has been send and Server response header has been handled
@@ -81,19 +79,38 @@ void setup() {
   }
 
   // Wait
-  delay(100000);
-  M5.Lcd.clear(BLACK);
+  delay(5000);
+  // initialize
+  bath_status = false;
+  M5.Lcd.clear(GREEN);
+  M5.Lcd.println("Bath is available");
 }
 
 void loop() {
   M5.update();
   M5.Lcd.setCursor(0, 0);
-  M5.Lcd.print("Button A Status: ");
-  M5.Lcd.println(M5.BtnA.isPressed());
-  M5.Lcd.print("Button B Status: ");
-  M5.Lcd.println(M5.BtnB.isPressed());
-  M5.Lcd.print("Button C Status: ");
-  M5.Lcd.println(M5.BtnC.isPressed());
-  M5.Lcd.print("Touch Panel Status: ");
-  M5.Lcd.println(M5.Touch.ispressed());     //include button A/B/C
+  //M5.Lcd.print("Button A Status: ");
+  //M5.Lcd.println(M5.BtnA.isPressed());
+  //M5.Lcd.print("Button B Status: ");
+  //M5.Lcd.println(M5.BtnB.isPressed());
+  //M5.Lcd.print("Button C Status: ");
+  //M5.Lcd.println(M5.BtnC.isPressed());
+  //M5.Lcd.print("Touch Panel Status: ");
+  //M5.Lcd.println(M5.Touch.ispressed());     //include button A/B/C
+  if(M5.Touch.ispressed())
+  {
+    WiFiClientSecure https;
+    if(bath_status == false)      // change state of bath in use
+    {
+      bath_status = true;
+      M5.Lcd.clear(RED);
+      M5.Lcd.println("Bath in use");
+    }
+    else      // change state of bath is avalilable
+    {
+      bath_status = false;
+      M5.Lcd.clear(GREEN);
+      M5.Lcd.println("Bath is available");
+    }
+  }
 }
