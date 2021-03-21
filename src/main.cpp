@@ -8,63 +8,55 @@
 #include <WiFiMulti.h>
 #include <HTTPClient.h>
 
-/*
-#include <map>
-#include <Fonts/EVA_20px.h>
-#include <stdio.h>
+#include <wifi_pass.h>
+//extern const char* ca;
 
-enum {
-  small = 0,
-  midium,
-  large,
-  radius_threshold,
-};
-
-enum {
-  black = 0,
-  white,
-  red,
-  green,
-  blue,
-  yellow,
-  purple,
-  pink,
-  color_threshold,
-};
-
-std::map<int, uint32_t> colorMap{
-   {black, BLACK},
-   {white, WHITE},
-   {red, RED},
-   {green, GREEN},
-   {blue, BLUE},
-   {yellow, YELLOW},
-   {purple, PURPLE},
-   {pink, PINK},
-};
-
-std::map<int, uint32_t> radiusMap{
-   {small, 10},
-   {midium, 15},
-   {large, 25},
-};
-
-uint32_t color = red;
-uint32_t radius = midium;
-*/
+WiFiMulti wifiMulti;
+HTTPClient http;
 
 void setup() {
-  //M5.begin(true, true, true, true);
   M5.begin(true, false, false, false);
   M5.Lcd.setTextSize(2);
   //M5.Lcd.print("Hello World!!");
+
+  // WifiSetup
+  wifiMulti.addAP(WIFI_SSID, WIFI_PASS);
+
+  // wait for WiFi connection
+  if((wifiMulti.run() == WL_CONNECTED)) {
+    M5.Lcd.println("Success wifi connection");
+
+    HTTPClient http;
+    //HTTPS
+    http.begin("http://www.tomorinao.space/");
+    //http.begin("https://www.skyarch.net/blog/?feed=rss2", ca);
+
+    // start connection and send HTTP header
+    int httpCode = http.GET();
+
+    // httpCode will be negative on error
+    if(httpCode > 0) {
+      // HTTP header has been send and Server response header has been handled
+       M5.Lcd.printf("[HTTP] GET... code: %d\n", httpCode);
+
+      // file found at server
+      if(httpCode == HTTP_CODE_OK) {
+        String payload = http.getString();
+        M5.Lcd.println(payload);
+      }
+    }
+    else
+    {
+       M5.Lcd.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
+    }
+    http.end();
+  }
+  // Wait
+  delay(100000);
 }
 
 void loop() {
   M5.update();
-  //TouchPoint_t pos = M5.Touch.getPressPoint();
-  //static bool isPressed = false;
-
   M5.Lcd.setCursor(0, 0);
   M5.Lcd.print("Button A Status: ");
   M5.Lcd.println(M5.BtnA.isPressed());
@@ -74,33 +66,4 @@ void loop() {
   M5.Lcd.println(M5.BtnC.isPressed());
   M5.Lcd.print("Touch Panel Status: ");
   M5.Lcd.println(M5.Touch.ispressed());     //include button A/B/C
-
-  //isPressed = false;
-  /*
-  if(pos.y > 1 && pos.x > 1){
-    //M5.Lcd.fillCircle(pos.x, pos.y, radiusMap[radius], colorMap[color]);
-    M5.Lcd.println("1");
-  }
-  else
-  {
-    M5.Lcd.println("0");
-  }
-  */
-
-/*
-  if(!isPressed){
-    if(pos.y > 240){
-      if(pos.x < 120){//btnA
-        isPressed = true;
-      }
-      else if(pos.x > 240){ //btnC
-        isPressed = true;
-      }
-      else if(pos.x >= 180 && pos.x <= 210){ //btnB
-        isPressed = true;
-      }
-    }
-  }
-  delay(10);
-*/
 }
