@@ -1,7 +1,7 @@
 #define WIFI_SSID "[ご自身の環境のWifiSSID]"
 #define WIFI_PASS "[ご自身の環境のWifiPassowrd]"
 
-#define BATH_BOT_VERSION "1.0.2"
+#define BATH_BOT_VERSION "1.0.3"
 
 const char* ca = \ 
 "-----BEGIN CERTIFICATE-----\n" \  
