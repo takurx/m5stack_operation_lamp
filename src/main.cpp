@@ -8,6 +8,9 @@
 // Ref6. https://garretlab.web.fc2.com/arduino/esp32/examples/WiFiClientSecure/WiFiClientSecure.html
 // Ref7. https://qiita.com/lumbermill/items/2517c5f130384cced335
 // Ref8. https://wak-tech.com/archives/1770
+// Ref9. https://wak-tech.com/archives/1906
+// Ref10. https://qiita.com/hotchpotch/items/1cab19b6d464672e3a4d
+// Ref11. https://software.small-desk.com/diy/2020/03/29/esp8266ota-platformio/
 
 #include <Arduino.h>
 #include <M5Core2.h>
@@ -72,6 +75,11 @@ void post_to_slack(String message)
 void setup() {
   M5.begin(true, false, false, false);
   M5.Lcd.setTextSize(2);
+
+  Serial.begin(115200);
+  Serial.print("Bath Bot ");
+  Serial.println(BATH_BOT_VERSION);
+
   M5.Lcd.print("Bath Bot ");
   M5.Lcd.println(BATH_BOT_VERSION);
 
@@ -79,10 +87,44 @@ void setup() {
   WiFi.begin(WIFI_SSID, WIFI_PASS);
 
   // wait for WiFi connection
-  while (WiFi.status() != WL_CONNECTED) {
-    Serial.print(".");
-    delay(500);
+  //while (WiFi.status() != WL_CONNECTED) {
+  //  Serial.print(".");
+  //  delay(500);
+  //}
+  
+  while (WiFi.waitForConnectResult() != WL_CONNECTED) {
+    Serial.println("Connection Failed! Rebooting...");
+    delay(5000);
+    ESP.restart();
   }
+
+  ArduinoOTA.setHostname("bathbot");
+
+  ArduinoOTA
+    .onStart([]() {
+      String type;
+      if (ArduinoOTA.getCommand() == U_FLASH)
+        type = "sketch";
+      else // U_SPIFFS
+        type = "filesystem";
+      Serial.println("Start updating " + type);
+    })
+    .onEnd([]() {
+      Serial.println("\nEnd");
+    })
+    .onProgress([](unsigned int progress, unsigned int total) {
+      Serial.printf("Progress: %u%%\r", (progress / (total / 100)));
+    })
+    .onError([](ota_error_t error) {
+      Serial.printf("Error[%u]: ", error);
+      if (error == OTA_AUTH_ERROR) Serial.println("Auth Failed");
+      else if (error == OTA_BEGIN_ERROR) Serial.println("Begin Failed");
+      else if (error == OTA_CONNECT_ERROR) Serial.println("Connect Failed");
+      else if (error == OTA_RECEIVE_ERROR) Serial.println("Receive Failed");
+      else if (error == OTA_END_ERROR) Serial.println("End Failed");
+    });
+
+  ArduinoOTA.begin();
 
   M5.Lcd.println("Success wifi connection");
   M5.Lcd.print("Connected to ");
@@ -98,12 +140,14 @@ void setup() {
   M5.Lcd.clear(GREEN);
   M5.Lcd.setCursor(0, 0);
   M5.Lcd.println("Bath is available");
+  Serial.println("Bath is available");
   post_to_slack(message_available);
   M5.Lcd.print("IP address: ");
   M5.Lcd.println(WiFi.localIP());
 }
 
 void loop() {
+  ArduinoOTA.handle();
   M5.update();
   M5.Lcd.setCursor(0, 0);
 
@@ -114,6 +158,7 @@ void loop() {
       bath_status = true;
       M5.Lcd.clear(RED);
       M5.Lcd.println("Bath in use");
+      Serial.println("Bath in use");
       post_to_slack(message_in_use);
       M5.Lcd.print("IP address: ");
       M5.Lcd.println(WiFi.localIP());
@@ -123,6 +168,7 @@ void loop() {
       bath_status = false;
       M5.Lcd.clear(GREEN);
       M5.Lcd.println("Bath is available");
+      Serial.println("Bath is available");
       post_to_slack(message_available);
       M5.Lcd.print("IP address: ");
       M5.Lcd.println(WiFi.localIP());
