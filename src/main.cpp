@@ -11,16 +11,20 @@
 // Ref9. https://wak-tech.com/archives/1906
 // Ref10. https://qiita.com/hotchpotch/items/1cab19b6d464672e3a4d
 // Ref11. https://software.small-desk.com/diy/2020/03/29/esp8266ota-platformio/
+// Ref12. https://www.autumn-color.com/archives/839
+// Ref13. https://www.1ft-seabass.jp/memo/2021/02/12/m5stack-basic-and-core2-default-fontsize-maybe-7px-knowledge/
 
 #include <Arduino.h>
 #include <M5Core2.h>
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 #include <ArduinoOTA.h>
+#include <time.h>
 
 #include <wifi_pass.h>
 
 //#define BATH_BOT_VERSION "1.0.0"
+#define JST 3600*9
 
 bool bath_status = false;     // true: in_use, false: available
 
@@ -131,6 +135,8 @@ void setup() {
   M5.Lcd.println(WIFI_SSID);
   M5.Lcd.println(WiFi.localIP());
 
+  configTime( JST, 0, "ntp.nict.jp", "ntp.jst.mfeed.ad.jp");
+
   post_to_slack(message_wakeup);
 
   // Wait
@@ -141,17 +147,30 @@ void setup() {
   M5.Lcd.setCursor(0, 0);
   M5.Lcd.println("Bath is available");
   Serial.println("Bath is available");
-  M5.Lcd.setCursor(0, 100);
+  M5.Lcd.setCursor(0, 195);
   post_to_slack(message_available);
   M5.Lcd.print("IP address: ");
   M5.Lcd.println(WiFi.localIP());
 }
 
 void loop() {
+  time_t t;
+  struct tm *tm;
+  static const char *wd[7] = {"Sun","Mon","Tue","Wed","Thr","Fri","Sat"};
+
   ArduinoOTA.handle();
   M5.update();
   M5.Lcd.setCursor(0, 0);
 
+  t = time(NULL);
+  tm = localtime(&t);
+  M5.Lcd.setCursor(0, 226);
+  M5.Lcd.printf(" %04d/%02d/%02d(%s) %02d:%02d:%02d\n",
+        tm->tm_year+1900, tm->tm_mon+1, tm->tm_mday,
+        wd[tm->tm_wday],
+        tm->tm_hour, tm->tm_min, tm->tm_sec);
+  M5.Lcd.setCursor(0, 0);
+  
   if(M5.Touch.ispressed())
   {
     if(bath_status == false)      // change state of bath in use
@@ -160,7 +179,7 @@ void loop() {
       M5.Lcd.clear(RED);
       M5.Lcd.println("Bath in use");
       Serial.println("Bath in use");
-      M5.Lcd.setCursor(0, 100);
+      M5.Lcd.setCursor(0, 195);
       post_to_slack(message_in_use);
       M5.Lcd.print("IP address: ");
       M5.Lcd.println(WiFi.localIP());
@@ -171,7 +190,7 @@ void loop() {
       M5.Lcd.clear(GREEN);
       M5.Lcd.println("Bath is available");
       Serial.println("Bath is available");
-      M5.Lcd.setCursor(0, 100);
+      M5.Lcd.setCursor(0, 195);
       post_to_slack(message_available);
       M5.Lcd.print("IP address: ");
       M5.Lcd.println(WiFi.localIP());
