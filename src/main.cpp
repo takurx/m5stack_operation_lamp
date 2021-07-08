@@ -141,6 +141,7 @@ void setup() {
   M5.Lcd.setCursor(0, 0);
   M5.Lcd.println("Bath is available");
   Serial.println("Bath is available");
+  M5.Lcd.setCursor(0, 100);
   post_to_slack(message_available);
   M5.Lcd.print("IP address: ");
   M5.Lcd.println(WiFi.localIP());
@@ -159,6 +160,7 @@ void loop() {
       M5.Lcd.clear(RED);
       M5.Lcd.println("Bath in use");
       Serial.println("Bath in use");
+      M5.Lcd.setCursor(0, 100);
       post_to_slack(message_in_use);
       M5.Lcd.print("IP address: ");
       M5.Lcd.println(WiFi.localIP());
@@ -169,6 +171,7 @@ void loop() {
       M5.Lcd.clear(GREEN);
       M5.Lcd.println("Bath is available");
       Serial.println("Bath is available");
+      M5.Lcd.setCursor(0, 100);
       post_to_slack(message_available);
       M5.Lcd.print("IP address: ");
       M5.Lcd.println(WiFi.localIP());
