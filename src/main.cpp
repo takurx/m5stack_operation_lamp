@@ -153,10 +153,14 @@ void setup() {
   M5.Lcd.println(WiFi.localIP());
 }
 
+unsigned long previous_millis = 0;
+
 void loop() {
   time_t t;
   struct tm *tm;
   static const char *wd[7] = {"Sun","Mon","Tue","Wed","Thr","Fri","Sat"};
+  unsigned long current_millis;
+  unsigned long dif_millis;
 
   ArduinoOTA.handle();
   M5.update();
@@ -164,12 +168,27 @@ void loop() {
 
   t = time(NULL);
   tm = localtime(&t);
-  M5.Lcd.setCursor(0, 226);
-  M5.Lcd.printf(" %04d/%02d/%02d(%s) %02d:%02d:%02d\n",
-        tm->tm_year+1900, tm->tm_mon+1, tm->tm_mday,
-        wd[tm->tm_wday],
-        tm->tm_hour, tm->tm_min, tm->tm_sec);
-  M5.Lcd.setCursor(0, 0);
+
+  current_millis = millis();
+  if (current_millis > previous_millis)
+  {
+    dif_millis = current_millis - previous_millis;
+  }
+  else
+  {
+    unsigned long max_unsigned_long = 0UL - 1UL;
+    dif_millis = current_millis + max_unsigned_long - previous_millis;
+  }
+  if (dif_millis > 1000)
+  {
+    M5.Lcd.setCursor(0, 226);
+    M5.Lcd.printf(" %04d/%02d/%02d(%s) %02d:%02d:%02d\n",
+          tm->tm_year+1900, tm->tm_mon+1, tm->tm_mday,
+          wd[tm->tm_wday],
+          tm->tm_hour, tm->tm_min, tm->tm_sec);
+    M5.Lcd.setCursor(0, 0);
+    previous_millis = current_millis;
+  }
   
   if(M5.Touch.ispressed())
   {
