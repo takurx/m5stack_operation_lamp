@@ -8,4 +8,5 @@ doc_password/
 
 src/wifi_pass.h
 
-include/wifi_pass.h
+;include/wifi_pass.h
+include/wifi_pass_private.h
