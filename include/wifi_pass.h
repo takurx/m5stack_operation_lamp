@@ -3,6 +3,10 @@
 #define WIFI_SSID "GeekHouseTsukuba-g"
 #define WIFI_PASS "tomorinao"
 
+String message_wakeup = "payload={\"channel\": \"73-1_opr_bath_geekhouse_tsukuba\", \"username\": \"Bath Bot\", \"text\": \"Wakeup Bath Bot. Version: " + String(BATH_BOT_VERSION) + "\", \"icon_emoji\": \":satisfied:\"}";
+String message_in_use = "payload={\"channel\": \"73-1_opr_bath_geekhouse_tsukuba\", \"username\": \"Bath in use\", \"text\": \"Bath in use.\", \"icon_emoji\": \":hotsprings:\"}";
+String message_available = "payload={\"channel\": \"73-1_opr_bath_geekhouse_tsukuba\", \"username\": \"Bath is available\", \"text\": \"Bath is available\", \"icon_emoji\": \":o:\"}";
+
 const char* ca = \
 "-----BEGIN CERTIFICATE-----\n" \
 "MIIDrzCCApegAwIBAgIQCDvgVpBCRrGhdWrJWZHHSjANBgkqhkiG9w0BAQUFADBh\n" \
@@ -28,3 +32,5 @@ const char* ca = \
 
 const char* hostname = "hooks.slack.com";
 const char* target_page = "/services/T0....../B0....../jB......";
+
+
