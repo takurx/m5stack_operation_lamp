@@ -1,4 +1,4 @@
-#define BATH_BOT_VERSION "1.1.4"
+#define BATH_BOT_VERSION "1.1.5"
 // test for Geekhouse Tsukuba
 #define WIFI_SSID "GeekHouseTsukuba-g"
 #define WIFI_PASS "tomorinao"
