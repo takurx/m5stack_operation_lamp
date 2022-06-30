@@ -13,6 +13,8 @@
 // Ref11. https://software.small-desk.com/diy/2020/03/29/esp8266ota-platformio/
 // Ref12. https://www.autumn-color.com/archives/839
 // Ref13. https://www.1ft-seabass.jp/memo/2021/02/12/m5stack-basic-and-core2-default-fontsize-maybe-7px-knowledge/
+// Ref14. http://moyane.blog25.fc2.com/blog-entry-684.html
+// error: 'vector' in namespace 'std' does not name a template type -> add #include <vector>、./m5stack_operation_lamp/.pio/libdeps/m5stack-core-esp32/M5Core2/src/touch.h
 
 #include <Arduino.h>
 #include <M5Core2.h>
