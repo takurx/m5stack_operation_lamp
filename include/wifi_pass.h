@@ -1,4 +1,4 @@
-#define BATH_BOT_VERSION "1.1.8"
+#define BATH_BOT_VERSION "1.2.0"
 // test for Geekhouse Tsukuba
 //#define WIFI_SSID "GeekHouseTsukuba-g"
 //#define WIFI_PASS "tomorinao"
@@ -6,40 +6,35 @@
 #define WIFI_SSID "teTra_Office"
 #define WIFI_PASS "tetratetra"
 
+const char* hostname = "hooks.slack.com";
+
 // Geekhouse Bijogi
 //#define WIFI_SSID "teTra_GHB"
 //#define WIFI_PASS "tetratetra"
-//String message_wakeup = "payload={\"channel\": \"#71-1_opr_bath_geekhouse_bijogi\", \"username\": \"Bath Bot\", \"text\": \"Wakeup Bath Bot. Version: " + String(BATH_BOT_VERSION) + "\", \"icon_emoji\": \":satisfied:\"}";
-//String message_in_use = "payload={\"channel\": \"#71-1_opr_bath_geekhouse_bijogi\", \"username\": \"Bath in use\", \"text\": \"Bath in use.\", \"icon_emoji\": \":hotsprings:\"}";
-//String message_available = "payload={\"channel\": \"#71-1_opr_bath_geekhouse_bijogi\", \"username\": \"Bath is available\", \"text\": \"Bath is available\", \"icon_emoji\": \":o:\"}";
-//String message_wakeup = "payload={\"channel\": \"#z_geekhouse_bijogi_bathroom\", \"username\": \"Bath Bot\", \"text\": \"Wakeup Bath Bot. Version: " + String(BATH_BOT_VERSION) + "\", \"icon_emoji\": \":satisfied:\"}";
-//String message_in_use = "payload={\"channel\": \"#z_geekhouse_bijogi_bathroom\", \"username\": \"Bath in use\", \"text\": \"Bath in use.\", \"icon_emoji\": \":hotsprings:\"}";
-//String message_available = "payload={\"channel\": \"#z_geekhouse_bijogi_bathroom\", \"username\": \"Bath is available\", \"text\": \"Bath is available\", \"icon_emoji\": \":o:\"}";
-// Channel ID: C021B98R75E
-//String message_wakeup = "payload={\"channel\": \"C021B98R75E\", \"username\": \"Bath Bot\", \"text\": \"Wakeup Bath Bot. Version: " + String(BATH_BOT_VERSION) + "\", \"icon_emoji\": \":satisfied:\"}";
-//String message_in_use = "payload={\"channel\": \"C021B98R75E\", \"username\": \"Bath in use\", \"text\": \"Bath in use.\", \"icon_emoji\": \":hotsprings:\"}";
-//String message_available = "payload={\"channel\": \"C021B98R75E\", \"username\": \"Bath is available\", \"text\": \"Bath is available\", \"icon_emoji\": \":o:\"}";
 // chanel name: misc_geekhouse_bijogi_bath
-String message_wakeup = "payload={\"channel\": \"#misc_geekhouse_bijogi_bath\", \"username\": \"Bath Bot\", \"text\": \"Wakeup Bath Bot. Version: " + String(BATH_BOT_VERSION) + "\", \"icon_emoji\": \":satisfied:\"}";
-String message_in_use = "payload={\"channel\": \"#misc_geekhouse_bijogi_bath\", \"username\": \"Bath in use\", \"text\": \"Bath in use.\", \"icon_emoji\": \":hotsprings:\"}";
-String message_available = "payload={\"channel\": \"#misc_geekhouse_bijogi_bath\", \"username\": \"Bath is available\", \"text\": \"Bath is available\", \"icon_emoji\": \":o:\"}";
+//String message_wakeup = "payload={\"channel\": \"#misc_geekhouse_bijogi_bath\", \"username\": \"Bath Bot\", \"text\": \"Wakeup Bath Bot. Version: " + String(BATH_BOT_VERSION) + "\", \"icon_emoji\": \":satisfied:\"}";
+//String message_in_use = "payload={\"channel\": \"#misc_geekhouse_bijogi_bath\", \"username\": \"Bath in use\", \"text\": \"Bath in use.\", \"icon_emoji\": \":hotsprings:\"}";
+//String message_available = "payload={\"channel\": \"#misc_geekhouse_bijogi_bath\", \"username\": \"Bath is available\", \"text\": \"Bath is available\", \"icon_emoji\": \":o:\"}";
+//https://hooks.slack.com/services/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, bijogi, update 230415
+const char* target_page = "/services/T0101P6FH2L/B0530468M0B/CC1Y9czscnfPFYhjXpeKdukn";
+// Channel ID: C021B98R75E
+String message_wakeup = "payload={\"channel\": \"C021B98R75E\", \"username\": \"Bath Bot\", \"text\": \"Wakeup Bath Bot. Version: " + String(BATH_BOT_VERSION) + "\", \"icon_emoji\": \":satisfied:\"}";
+String message_in_use = "payload={\"channel\": \"C021B98R75E\", \"username\": \"Bath in use\", \"text\": \"Bath in use.\", \"icon_emoji\": \":hotsprings:\"}";
+String message_available = "payload={\"channel\": \"C021B98R75E\", \"username\": \"Bath is available\", \"text\": \"Bath is available\", \"icon_emoji\": \":o:\"}";
 
 
 
+/*
 // Geekhouse Minami-Soma
 //#define WIFI_SSID "teTra_GHM"
 //#define WIFI_PASS "tetratetra"
-//String message_wakeup = "payload={\"channel\": \"#72-1_opr_bath_geekhouse_minamisoma\", \"username\": \"Bath Bot\", \"text\": \"Wakeup Bath Bot. Version: " + String(BATH_BOT_VERSION) + "\", \"icon_emoji\": \":satisfied:\"}";
-//String message_in_use = "payload={\"channel\": \"#72-1_opr_bath_geekhouse_minamisoma\", \"username\": \"Bath in use\", \"text\": \"Bath in use.\", \"icon_emoji\": \":hotsprings:\"}";
-//String message_available = "payload={\"channel\": \"#72-1_opr_bath_geekhouse_minamisoma\", \"username\": \"Bath is available\", \"text\": \"Bath is available\", \"icon_emoji\": \":o:\"}";
-//String message_wakeup = "payload={\"channel\": \"#z_geekhouse_minamisoma_bathroom\", \"username\": \"Bath Bot\", \"text\": \"Wakeup Bath Bot. Version: " + String(BATH_BOT_VERSION) + "\", \"icon_emoji\": \":satisfied:\"}";
-//String message_in_use = "payload={\"channel\": \"#z_geekhouse_minamisoma_bathroom\", \"username\": \"Bath in use\", \"text\": \"Bath in use.\", \"icon_emoji\": \":hotsprings:\"}";
-//String message_available = "payload={\"channel\": \"#z_geekhouse_minamisoma_bathroom\", \"username\": \"Bath is available\", \"text\": \"Bath is available\", \"icon_emoji\": \":o:\"}";
 // Channel ID: C01Q76PD9DL
-//String message_wakeup = "payload={\"channel\": \"C01Q76PD9DL\", \"username\": \"Bath Bot\", \"text\": \"Wakeup Bath Bot. Version: " + String(BATH_BOT_VERSION) + "\", \"icon_emoji\": \":satisfied:\"}";
-//String message_in_use = "payload={\"channel\": \"C01Q76PD9DL\", \"username\": \"Bath in use\", \"text\": \"Bath in use.\", \"icon_emoji\": \":hotsprings:\"}";
-//String message_available = "payload={\"channel\": \"C01Q76PD9DL\", \"username\": \"Bath is available\", \"text\": \"Bath is available\", \"icon_emoji\": \":o:\"}";
-//https://hooks.slack.com/services/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, haranomatch
+//https://hooks.slack.com/services/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, haranomatch
+const char* target_page = "/services/T0101P6FH2L/B01Q76TEGPQ/IZWTtAu6ROwTaHHrOXxscclk";
+String message_wakeup = "payload={\"channel\": \"C01Q76PD9DL\", \"username\": \"Bath Bot\", \"text\": \"Wakeup Bath Bot. Version: " + String(BATH_BOT_VERSION) + "\", \"icon_emoji\": \":satisfied:\"}";
+String message_in_use = "payload={\"channel\": \"C01Q76PD9DL\", \"username\": \"Bath in use\", \"text\": \"Bath in use.\", \"icon_emoji\": \":hotsprings:\"}";
+String message_available = "payload={\"channel\": \"C01Q76PD9DL\", \"username\": \"Bath is available\", \"text\": \"Bath is available\", \"icon_emoji\": \":o:\"}";
+*/
 
 /*
 const char* ca = \
@@ -67,40 +62,7 @@ const char* ca = \
 "-----END CERTIFICATE-----\n";
 */
 
-/*
-const char* ca = \
-"-----BEGIN CERTIFICATE-----\n" \
-"MIIFJTCCBA2gAwIBAgISBHu6bO4huNAiFhYpQhlVsUPaMA0GCSqGSIb3DQEBCwUA\n" \
-"MDIxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MQswCQYDVQQD\n" \
-"EwJSMzAeFw0yMzAzMTQwNTE3MTNaFw0yMzA2MTIwNTE3MTJaMBQxEjAQBgNVBAMT\n" \
-"CXNsYWNrLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAN2rqHkC\n" \
-"HJkqERgVnhsGalMy+W5cFGhyWPVkPknNmLvYnznWxny7PQRmucedAjmaXVGFBpRo\n" \
-"kT6LDFJJGpc9IDcH3UxI/0lWFsh/IF6PTlJ5n14rKFDqnLyo+/JfHhSK4WsYSmfX\n" \
-"FkQSeb/GG3so3Ttnqj1lPYsQEc4OMXIHU07pNYAzL59z0kpXkDHUqwQ9OzJ4xAj0\n" \
-"JJyoEXntKlF0s06YLqCKLCpZNRJpJMufzcgA1BuoCf+FR9zb2JiIlCTbU+ykF2em\n" \
-"RUzya6pZkpyWeeP+IGTzGQ2fYb/3P+h9RTGdGhRZrlgEPfJd2Vwkeycfi77A61He\n" \
-"Qw9W6U44/dk1KjsCAwEAAaOCAlEwggJNMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUE\n" \
-"FjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwDAYDVR0TAQH/BAIwADAdBgNVHQ4EFgQU\n" \
-"mGdj+1lAmdcO20aIUo7FVjvdq5UwHwYDVR0jBBgwFoAUFC6zF7dYVsuuUAlA5h+v\n" \
-"nYsUwsYwVQYIKwYBBQUHAQEESTBHMCEGCCsGAQUFBzABhhVodHRwOi8vcjMuby5s\n" \
-"ZW5jci5vcmcwIgYIKwYBBQUHMAKGFmh0dHA6Ly9yMy5pLmxlbmNyLm9yZy8wIQYD\n" \
-"VR0RBBowGIILKi5zbGFjay5jb22CCXNsYWNrLmNvbTBMBgNVHSAERTBDMAgGBmeB\n" \
-"DAECATA3BgsrBgEEAYLfEwEBATAoMCYGCCsGAQUFBwIBFhpodHRwOi8vY3BzLmxl\n" \
-"dHNlbmNyeXB0Lm9yZzCCAQQGCisGAQQB1nkCBAIEgfUEgfIA8AB3ALc++yTfnE26\n" \
-"dfI5xbpY9Gxd/ELPep81xJ4dCYEl7bSZAAABht7EAvsAAAQDAEgwRgIhAOEMiIau\n" \
-"KO0C92nvDk5fqpyat2lQg0W5Q224IFDCgZ1aAiEAyfcZUzWUf6Mp4dg9kT5kkjbb\n" \
-"tfHa+VRhqyPyZuhfqnsAdQDoPtDaPvUGNTLnVyi8iWvJA9PL0RFr7Otp4Xd9bQa9\n" \
-"bgAAAYbexALxAAAEAwBGMEQCIB/kYtGMs/05ePVmI/IGgGJPiUgSSEcsjsPL8TgQ\n" \
-"h8HqAiA6W6aoujt6SbOihAwmz04WqD5xtn6Wss7lNsUmb0pp+TANBgkqhkiG9w0B\n" \
-"AQsFAAOCAQEAR/qMA3MjQygHPcZL9HDFDX2qGx1yWoBJhfn97z9B3XsSCrGP647f\n" \
-"nIVDxOqNXskjbYZPxjGW5ny8Gqyn0gF98n7BZx40PfKJdhhuo8vNpWDThAvQkbdc\n" \
-"mZkiB/HhKww0vELOXRH0AerLiWMN8uuI1C43P+P8l/woM/1fccAiWlPearTMcsG4\n" \
-"ufZ8HldSFVmv/0BGZj9GaW89bydHy6J1xo4QP1nEVu+a0u2zans47HkhqmmDjTpf\n" \
-"ThSdUEk2rnPicNgLKMBek0vkq++F1LEwGC0UEkL1CZNo8nRzKG12UJku+B4agZ4t\n" \
-"cXelW9Qj0aUGT49sHRur67plfIxxg8eRGA==\n" \
-"-----END CERTIFICATE-----\n";
-*/
-
+//update, 230415
 const char* ca = \
 "-----BEGIN CERTIFICATE-----\n" \
 "MIIFazCCA1OgAwIBAgIRAIIQz7DSQONZRGPgu2OCiwAwDQYJKoZIhvcNAQELBQAw\n" \
@@ -133,11 +95,5 @@ const char* ca = \
 "mRGunUHBcnWEvgJBQl9nJEiU0Zsnvgc/ubhPgXRR4Xq37Z0j4r7g1SgEEzwxA57d\n" \
 "emyPxgcYxn/eR44/KJ4EBs+lVDR3veyJm+kXQ99b21/+jh5Xos1AnX5iItreGCc=\n" \
 "-----END CERTIFICATE-----\n";
-
-//update 230413, https://hooks.slack.com/services/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
-//haranomatchi,  https://hooks.slack.com/services/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
-const char* hostname = "hooks.slack.com";
-//const char* target_page = "/services/T0101P6FH2L/B01Q76TEGPQ/jBEHT6gtwIs4b7yBiryWPGEL";
-const char* target_page = "/services/T0101P6FH2L/B0530468M0B/HOQQAD0cwQICpuyPbuugMav3";
 
 

@@ -25,12 +25,7 @@
 
 #include <wifi_pass.h>
 
-//#define BATH_BOT_VERSION "1.1.6"
 #define JST 3600*9
-
-//HTTPClient http;
-//WiFiClientSecure https;
-//const char *json = "{\"text\":\"From M5Stack Yo!\",\"icon_emoji\":\":ghost:\",\"username\":\"m5stackpost\"}";
 
 bool bath_status = false;     // true: in_use, false: available
 
@@ -143,17 +138,13 @@ void setup() {
 
   configTime( JST, 0, "ntp.nict.jp", "ntp.jst.mfeed.ad.jp");
 
-  //https.begin(hostname, 443, target_page, ca);
-  //https.addHeader("Content-Type", "application/json" );
-  //https.POST((uint8_t*)json, strlen(json));
-
   post_to_slack(message_wakeup);
   //String message_ipaddress = "payload={\"channel\": \"C021B98R75E\", \"username\": \"Bath Bot\", \"text\": \"Wakeup Bath Bot. IPaddress: " + String(WiFi.localIP()) + "\"}";
   //String message_ipaddress = "payload={\"channel\": \"#misc_geekhouse_bijogi_bath\", \"username\": \"Bath Bot\", \"text\": \"Wakeup Bath Bot. IPaddress: " + String(WiFi.localIP()) + "\"}";
   //post_to_slack(message_ipaddress);
 
   // Wait
-  delay(8000);
+  delay(5000);
   // initialize
   bath_status = false;
   M5.Lcd.clear(GREEN);
