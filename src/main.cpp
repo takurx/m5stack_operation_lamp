@@ -23,7 +23,7 @@
 #include <ArduinoOTA.h>
 #include <time.h>
 
-#include <wifi_pass.h>
+#include <wifi_pass_private.h>
 
 #define JST 3600*9
 

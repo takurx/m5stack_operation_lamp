@@ -1,4 +1,4 @@
-#define BATH_BOT_VERSION "1.2.0"
+#define BATH_BOT_VERSION "1.2.1"
 // test for Geekhouse Tsukuba
 //#define WIFI_SSID "GeekHouseTsukuba-g"
 //#define WIFI_PASS "tomorinao"
@@ -15,8 +15,8 @@ const char* hostname = "hooks.slack.com";
 //String message_wakeup = "payload={\"channel\": \"#misc_geekhouse_bijogi_bath\", \"username\": \"Bath Bot\", \"text\": \"Wakeup Bath Bot. Version: " + String(BATH_BOT_VERSION) + "\", \"icon_emoji\": \":satisfied:\"}";
 //String message_in_use = "payload={\"channel\": \"#misc_geekhouse_bijogi_bath\", \"username\": \"Bath in use\", \"text\": \"Bath in use.\", \"icon_emoji\": \":hotsprings:\"}";
 //String message_available = "payload={\"channel\": \"#misc_geekhouse_bijogi_bath\", \"username\": \"Bath is available\", \"text\": \"Bath is available\", \"icon_emoji\": \":o:\"}";
-//https://hooks.slack.com/services/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, bijogi, update 230415
-const char* target_page = "/services/T0101P6FH2L/B0530468M0B/CC1Y9czscnfPFYhjXpeKdukn";
+// /services/T0101P6FH2L/B0530468M0B/YCeNEI2zF531oCQiajgBIzTV, bijogi, update 230415
+const char* target_page = "/services/T0101P6FH2L/B0530468M0B/YCeNEI2zF531oCQiajgBIzTV";
 // Channel ID: C021B98R75E
 String message_wakeup = "payload={\"channel\": \"C021B98R75E\", \"username\": \"Bath Bot\", \"text\": \"Wakeup Bath Bot. Version: " + String(BATH_BOT_VERSION) + "\", \"icon_emoji\": \":satisfied:\"}";
 String message_in_use = "payload={\"channel\": \"C021B98R75E\", \"username\": \"Bath in use\", \"text\": \"Bath in use.\", \"icon_emoji\": \":hotsprings:\"}";
@@ -29,7 +29,7 @@ String message_available = "payload={\"channel\": \"C021B98R75E\", \"username\":
 //#define WIFI_SSID "teTra_GHM"
 //#define WIFI_PASS "tetratetra"
 // Channel ID: C01Q76PD9DL
-//https://hooks.slack.com/services/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, haranomatch
+// services/T0101P6FH2L/B01Q76TEGPQ/IZWTtAu6ROwTaHHrOXxscclk, haranomatch
 const char* target_page = "/services/T0101P6FH2L/B01Q76TEGPQ/IZWTtAu6ROwTaHHrOXxscclk";
 String message_wakeup = "payload={\"channel\": \"C01Q76PD9DL\", \"username\": \"Bath Bot\", \"text\": \"Wakeup Bath Bot. Version: " + String(BATH_BOT_VERSION) + "\", \"icon_emoji\": \":satisfied:\"}";
 String message_in_use = "payload={\"channel\": \"C01Q76PD9DL\", \"username\": \"Bath in use\", \"text\": \"Bath in use.\", \"icon_emoji\": \":hotsprings:\"}";
